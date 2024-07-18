@@ -16,8 +16,12 @@ def market_page():
     items = Item.query.all()
     return render_template('market.html', items=items)
 
-@app.route('/register', methods=['GET', 'POST'])
+@app.route('/register')
 def register_page():
+    return render_template('register.html')
+
+@app.route('/register-player', methods=['GET', 'POST'])
+def register_player():
     form = RegisterForm()
     if form.validate_on_submit():
         user_to_create = User(username=form.username.data,
@@ -33,7 +37,7 @@ def register_page():
         for err_msg in form.errors.values():
             flash(f'There was an error with creating a user: {err_msg}', category='danger')
 
-    return render_template('register.html', form=form)
+    return render_template('register-player.html', form=form)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login_page():
