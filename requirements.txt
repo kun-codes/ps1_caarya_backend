@@ -4,3 +4,7 @@ flask-bcrypt
 flask-login
 flask-wtf
 email-validator
+
+joblib
+
+valo-api
