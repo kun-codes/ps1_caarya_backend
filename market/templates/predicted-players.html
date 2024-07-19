@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Predicted Players{% endblock %}
+{% block content %}
+<div class="container">
+    <br>
+    <h2>Players with the role: {{ role }}</h2>
+    <br>
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Valorant Username</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for player in players %}
+            <tr>
+                <td>{{ player.username }}</td>
+                <td>{{ player.valorant_username }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">No players found for this role.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
