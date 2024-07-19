@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
+from wtforms.fields.choices import SelectField
 from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError
 from market.models import User
 
@@ -46,3 +47,13 @@ class LoginForm(FlaskForm):
     username = StringField(label='User Name:', validators=[DataRequired()])
     password = PasswordField(label='Password:', validators=[DataRequired()])
     submit = SubmitField(label='Sign in')
+
+class PlayerTypeForm(FlaskForm):
+    playerType = SelectField('Player Type', choices=[
+        ('Entry Fragger', 'Entry Fragger'),
+        ('Sniper', 'Sniper'),
+        ('Support', 'Support'),
+        ('Anchor', 'Anchor'),
+        ('Lurker', 'Lurker')
+    ], validators=[DataRequired()])
+    submit = SubmitField('Find Player')
