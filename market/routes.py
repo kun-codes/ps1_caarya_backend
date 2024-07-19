@@ -97,11 +97,7 @@ def logout_page():
     return redirect(url_for("home_page"))
 
 
-
-
-
-
-
-
-
-
+@app.route('/predict')
+@login_required
+def predict_page():
+    return render_template('predict.html', role=current_user.role)
