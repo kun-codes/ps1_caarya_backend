@@ -26,5 +26,10 @@ Market Page
     {% if user_type == "player" %}
     <a href="{{ url_for('predict_page') }}" class="btn btn-primary">Predict your roles</a>
     {% endif %}
+
+    {% if user_type == "employer" %}
+    <a href="{{ url_for('find_player_page') }}" class="btn btn-primary">Find Players</a>
+    {% endif %}
+
 </div>
 {% endblock %}
