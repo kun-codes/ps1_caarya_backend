@@ -3,7 +3,7 @@ from flask import render_template, redirect, url_for, flash
 from market.models import Item, User
 from market.forms import RegisterPlayerForm, LoginForm, RegisterEmployerForm
 from market import db
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 
 @app.route('/')
 @app.route('/home')
@@ -14,7 +14,10 @@ def home_page():
 @login_required
 def market_page():
     items = Item.query.all()
-    return render_template('market.html', items=items)
+    return render_template('market.html', user_type=current_user.user_type,
+                           valorant_username=current_user.valorant_username,
+                           username=current_user.username,
+                           )
 
 @app.route('/register')
 def register_page():
