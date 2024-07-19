@@ -1,9 +1,14 @@
+from random import random
+
 from market import app
 from flask import render_template, redirect, url_for, flash
 from market.models import Item, User
 from market.forms import RegisterPlayerForm, LoginForm, RegisterEmployerForm
 from market import db
 from flask_login import login_user, logout_user, login_required, current_user
+
+import os
+# from dotenv import load_dotenv
 
 @app.route('/')
 @app.route('/home')
@@ -27,11 +32,15 @@ def register_page():
 def register_player():
     form = RegisterPlayerForm()
     if form.validate_on_submit():
+        import random
         user_to_create = User(username=form.username.data,
                               email_address=form.email_address.data,
                               valorant_username=form.valorant_username.data,
                               password=form.password1.data,
-                              user_type='player')
+                              user_type='player',
+                              role=random.choice(['Entry Fragger', 'Sniper', 'Support', 'Anchor', 'Lurker'])
+                              )
+
         db.session.add(user_to_create)
         db.session.commit()
         login_user(user_to_create)
@@ -51,7 +60,9 @@ def register_employer():
                               email_address=form.email_address.data,
                               valorant_username=form.valorant_username.data,
                               password=form.password1.data,
-                              user_type='employer')
+                              user_type='employer',
+                              role=random.choice(['Entry Fragger', 'Sniper', 'Support', 'Anchor', 'Lurker'])
+                              )
         db.session.add(user_to_create)
         db.session.commit()
         login_user(user_to_create)
