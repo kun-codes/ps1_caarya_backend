@@ -101,3 +101,14 @@ def logout_page():
 @login_required
 def predict_page():
     return render_template('predict.html', role=current_user.role)
+
+@app.route('/find-player', methods=['GET', 'POST'])
+@login_required
+def find_player_page():
+    form = PlayerTypeForm()
+    if form.validate_on_submit():
+        # Process the form data, e.g., form.playerType.data
+        selected_player_type = form.playerType.data
+        return redirect(url_for('predicted_players_page', role=selected_player_type))
+
+    return render_template('find-players.html', form=form)
