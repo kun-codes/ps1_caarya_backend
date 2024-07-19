@@ -1,9 +1,9 @@
 from random import random
 
 from market import app
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, url_for, flash, request
 from market.models import Item, User
-from market.forms import RegisterPlayerForm, LoginForm, RegisterEmployerForm
+from market.forms import RegisterPlayerForm, LoginForm, RegisterEmployerForm, PlayerTypeForm
 from market import db
 from flask_login import login_user, logout_user, login_required, current_user
 
@@ -61,7 +61,7 @@ def register_employer():
                               valorant_username=form.valorant_username.data,
                               password=form.password1.data,
                               user_type='employer',
-                              role=random.choice(['Entry Fragger', 'Sniper', 'Support', 'Anchor', 'Lurker'])
+                              role='Employer'
                               )
         db.session.add(user_to_create)
         db.session.commit()
@@ -112,3 +112,10 @@ def find_player_page():
         return redirect(url_for('predicted_players_page', role=selected_player_type))
 
     return render_template('find-players.html', form=form)
+
+@app.route('/predicted-players')
+@login_required
+def predicted_players_page():
+    role = request.args.get('role')
+    players = User.query.filter_by(role=role).all()
+    return render_template('predicted-players.html', players=players, role=role)

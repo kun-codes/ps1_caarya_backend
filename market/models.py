@@ -14,7 +14,7 @@ class User(db.Model, UserMixin):
     valorant_username = db.Column(db.String(length=30), nullable=False, unique=True)
     password_hash = db.Column(db.String(length=60), nullable=False)
     user_type = db.Column(Enum('player', 'employer', name='user_type'), nullable=False)
-    role = db.Column(Enum('Entry Fragger', 'Sniper', 'Support', 'Anchor', 'Lurker', name='role'), nullable=False)
+    role = db.Column(Enum('Entry Fragger', 'Sniper', 'Support', 'Anchor', 'Lurker', 'Employer', name='role'), nullable=False)
 
     @property
     def prettier_budget(self):
